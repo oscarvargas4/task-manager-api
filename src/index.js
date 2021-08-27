@@ -1,12 +1,16 @@
-const express = require('express')
-require('./db/mongoose')
-const User = require('./models/user')
-const Task = require('./models/task')
-const userRouter = require('./routers/user')
-const taskRouter = require('./routers/task')
+const app = require('./app')
 
-const app = express()
-const port = process.env.PORT // "|| 3000" is now defined in config
+//Al commented code below until "const port" is moved to app.js 
+
+// const express = require('express')
+// require('./db/mongoose')
+// const User = require('./models/user')
+// const Task = require('./models/task')
+// const userRouter = require('./routers/user')
+// const taskRouter = require('./routers/task')
+
+// const app = express()
+const port = process.env.PORT // "|| 3000" is now defined in config folder
 
 
 //Maintance web - When you want shut down all requests
