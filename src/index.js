@@ -20,9 +20,9 @@ const port = process.env.PORT // "|| 3000" is now defined in config folder
 
 
 
-app.use(express.json()) //"use()" customizes our server. The whole line will parse our incoming JSON to an object so we can access it in our request handlers
-app.use(userRouter) // Registering the router 
-app.use(taskRouter)
+// app.use(express.json()) //"use()" customizes our server. The whole line will parse our incoming JSON to an object so we can access it in our request handlers
+// app.use(userRouter) // Registering the router 
+// app.use(taskRouter)
 
 app.listen(port, () => {
     console.log('Server is up on port ' + port)
