@@ -4,15 +4,6 @@ const auth = require('../middleware/auth')
 const router = new express.Router()
 
 
-// app.post('/tasks', (req, res) => {
-//     const task = new Task(req.body)
-
-//     task.save().then(() => {
-//         res.status(201).send(task)
-//     }).catch((e) => {
-//         res.status(400).send(e) // https://httpstatuses.com/
-//     })
-// })
 
 //Changing app.post above for async & await (optimized code)
 router.post('/tasks', auth, async (req, res) => { //!!Change!!: "app.post" is changed for "router.post" so we can export it to "index.js" and because app it doesn't exist in this file
@@ -29,15 +20,6 @@ router.post('/tasks', auth, async (req, res) => { //!!Change!!: "app.post" is ch
         res.status(400).send(e)
     }
 })
-
-//Fetching all information
-// app.get('/tasks', (req, res) => {
-//     Task.find({}).then((tasks) => {
-//         res.send(tasks)
-//     }).catch((e) => {
-//         res.status(500).send()
-//     })
-// })
 
 //GET /tasks?completed=true
 //GET /tasks?limit=10&skip=20
@@ -72,21 +54,6 @@ router.get('/tasks', auth, async (req, res) => {
     }    
 })
 
-//Fetching by id
-// app.get('/tasks/:id', (req, res) => {
-//     const _id = req.params.id
-
-//     Task.findById(_id).then((task) => {
-//         if (!task) {
-//             return res.status(404).send()
-//         }
-
-//         res.send(task)
-//     }).catch((e) => {
-//         res.status(500).send()
-//     })
-// })
-
 router.get('/tasks/:id', auth, async (req, res) => {
     const _id = req.params.id
 
@@ -120,11 +87,7 @@ router.patch('/tasks/:id', auth, async (req, res) => {
         }
 
         updates.forEach((update) => task[update] = req.body[update])
-        await task.save()
-                
-        // This is commented because it does not work with Middleware, is replaced with the lines up above// 
-        //const task = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true }) // Option "new: true" This is going to return the new user as opposed to the existing one that was found before the update. So right here, we'll have back the latest data, the original user with the updates applied.
-        //Option: "runValidators: true" This is going to make sure that we do run validation for the update. So if I tried to update my name to something existent, I want to make sure that fails.
+        await task.save()              
         
         res.send(task)
     } catch (e) {

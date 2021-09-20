@@ -63,10 +63,6 @@ userSchema.virtual('tasks', {
     foreignField: 'owner'
 })
 
-//Hiding Private Data (password and tokens) - This function is never called, but it calls itself by ".toJSON". toJSON is 
-//a special property in JavaScript that is called when JSON.stringify is called on an object. When a Mongoose document 
-//is passed to res.send, Mongoose converts the object into JSON. You can customize this by adding toJSON as a method on 
-//the object. The method below removes the password and tokens properties before sending the response back https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#tojson_behavior
 userSchema.methods.toJSON = function () {//*IMPORTANT* note that this is not asynchronous function
     const user = this
     const userObject = user.toObject() 
@@ -128,17 +124,3 @@ const User = mongoose.model('User', userSchema)
 
 module.exports = User
 
-//Example code to create a new User:
-
-// const me = new User({
-//     name: '      Mike     ',
-//     email: 'MIKE@hotmail.com    ',
-//     password: 'HelloWorld122',
-//     age: 27
-// })
-
-// me.save().then(() => {
-//     console.log(me) // __v stands for version
-// }).catch((error) => {
-//     console.log('Error', error)
-// })
