@@ -4,7 +4,8 @@ const User = require('../models/user')
 
 const auth = async (req, res, next) => {
     try {
-        const token = req.header('Authorization').replace('Bearer ', '') // ".replace" is an String function that replaces the text you want (first argument), for something you want ("second argument"). In this case we get 'Bearer eyJhbGciOiJIUzI1(token's value)' replaced and we get: eyJhbGciOiJIUzI1
+        //const token = req.header('Authorization').replace('Bearer ', '') // ".replace" is an String function that replaces the text you want (first argument), for something you want ("second argument"). In this case we get 'Bearer eyJhbGciOiJIUzI1(token's value)' replaced and we get: eyJhbGciOiJIUzI1
+        const token = req.cookies['auth_token']
         const decoded = jwt.verify(token, process.env.JWT_SECRET) // Validating token
         const user = await User.findOne({ _id: decoded._id, 'tokens.token': token })
 
